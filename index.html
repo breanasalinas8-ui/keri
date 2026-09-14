@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#050505">
+<title>KERI — Gutom ka? Keri.</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <button id="backBtn" class="icon-btn back-btn hidden" aria-label="Back">‹</button>
+    <div class="logo">KERI</div>
+    <button id="topSearch" class="top-search" aria-label="Search">⌕ <span>Search food, fashion & local brands</span></button>
+    
+  </header>
+
+  <!-- ONE shared sticky navigation bar -->
+  <div class="sticky-tabs">
+    <button class="tab active" data-tab="for-you">For You</button>
+    <button class="tab" data-tab="live">LIVE</button>
+    <button class="tab" data-tab="following">Following</button>
+    <button class="tab" data-tab="search">Search</button>
+  <button id="cartBtn" class="basket-btn" aria-label="Basket">🛒<b id="cartBadge">0</b></button></div>
+
+  <main>
+    <section id="feedScreen" class="screen active">
+      <div id="feed"></div>
+    </section>
+
+    <section id="searchScreen" class="screen">
+      <div class="search-panel">
+        <div class="search-input-wrap">
+          <span>⌕</span>
+          <input id="searchInput" autocomplete="off" placeholder="Search food, fashion, creators...">
+          <button id="clearSearch" class="clear-search hidden">×</button>
+        </div>
+        <div class="search-popular">
+          <span>Popular</span>
+          <button data-search-chip="Jollibee">Jollibee</button>
+          <button data-search-chip="Chick Chicken">Chick Chicken</button>
+          <button data-search-chip="KaFoodTrip">KaFoodTrip</button>
+          <button data-search-chip="Pattie & Dough">Pattie & Dough</button>
+          <button data-search-chip="Fashion">Fashion</button>
+          <button data-search-chip="BSCO Manila">BSCO Manila</button>
+        </div>
+        <div id="searchResults"></div>
+      </div>
+    </section>
+
+    <section id="ordersScreen" class="screen utility-screen">
+      <div class="utility-head"><small>YOUR KERI</small><h1>My <em>Orders</em></h1></div>
+      <div id="ordersList"></div>
+    </section>
+
+    <section id="profileScreen" class="screen utility-screen">
+      <div class="profile-card">
+        <div class="profile-avatar">K</div>
+        <h1>KERI User</h1><p>@keriuser</p>
+      </div>
+      <div class="referral-card">
+        <div class="ref-icon">🎁</div>
+        <div class="ref-copy">
+          <b>Invite friends, earn vouchers</b>
+          <small>Invite 10 new KERI users and unlock a voucher.</small>
+          <div class="progress"><span id="refFill"></span></div>
+          <small id="refProgress">0/10 friends joined</small>
+        </div>
+        <button id="inviteBtn">Invite</button>
+      </div>
+      <div class="affiliate-card">
+        <small>AFFILIATE PROGRAM</small>
+        <h2>Share local. <em>Earn.</em></h2>
+        <p>Earn when people order through your KERI affiliate link.</p>
+        <button id="affiliateBtn">Join the program</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="backdrop" class="backdrop hidden"></div>
+
+  <section id="productSheet" class="sheet hidden">
+    <div class="grab"></div><button class="sheet-close" data-close>×</button>
+    <small>SHOP THIS POST</small><h2 id="sheetTitle"></h2>
+    <p class="sheet-note">Choose an item to add it to your yellow basket.</p>
+    <div id="productList"></div>
+  </section>
+
+  <section id="basketSheet" class="sheet hidden">
+    <div class="grab"></div><button class="sheet-close" data-close>×</button>
+    <small>YOUR BASKET</small><h2>Yellow Basket</h2>
+    <div id="basketList"></div>
+  </section>
+
+  <section id="commentsSheet" class="sheet hidden">
+    <div class="grab"></div><button class="sheet-close" data-close>×</button>
+    <small>COMMUNITY</small><h2>Comments</h2>
+    <div id="commentList"></div>
+    <form id="commentForm" class="comment-form">
+      <input id="commentInput" placeholder="Add a comment..." required>
+      <button>Post</button>
+    </form>
+  </section>
+
+  <div id="checkoutModal" class="modal hidden">
+    <div class="modal-card">
+      <button class="sheet-close" data-close>×</button>
+      <small>DELIVERY DETAILS</small><h2>Where should we <em>deliver?</em></h2>
+      <form id="checkoutForm">
+        <label>Full name<input id="name" required placeholder="Juan Dela Cruz"></label>
+        <label>Mobile number<input id="phone" required placeholder="09XX XXX XXXX"></label>
+        <label>Delivery address<input id="address" required placeholder="House / Unit, Street, Barangay"></label>
+        <label>City / Municipality<input id="city" required placeholder="Quezon City"></label>
+        <label>Delivery notes <span>Optional</span><textarea id="notes"></textarea></label>
+        <div id="checkoutReceipt" class="checkout-receipt">
+<div class="receipt-head"><strong>Order Summary</strong><span>Receipt</span></div>
+<div id="checkoutItems"></div>
+<div class="receipt-line"><span>Subtotal</span><strong id="checkoutSubtotal">₱0</strong></div>
+<div class="receipt-line discount-row"><span>New User Voucher</span><strong id="checkoutDiscount">− ₱0</strong></div>
+<div class="receipt-total"><span>Total</span><strong id="checkoutTotal">₱0</strong></div>
+</div><div class="voucher-box">
+          <div><b>🎁 KERI Welcome Voucher</b><small id="voucherStatus">₱100 Welcome Voucher available</small></div>
+          <button type="button" id="voucherBtn">Apply ₱100</button>
+        </div>
+        <div class="payment-row"><span>Payment</span><b>Cash on Delivery</b></div>
+        <button class="primary" type="submit">Place order</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="successModal" class="modal hidden">
+    <div class="modal-card success-card">
+      <div class="success-check">✓</div><small>ORDER CONFIRMED</small>
+      <h2>Keri na! 🎉</h2><p id="successText"></p>
+      <button class="primary" id="viewOrdersBtn">View my orders</button>
+    </div>
+  </div>
+
+  <div id="toast" role="status"></div>
+</div>
+<script src="script.js"></script>
+<nav id="bottomNav" class="bottom-nav" aria-label="Main navigation">
+<button type="button" data-bottom="home" class="active"><span class="nav-icon">⌂</span><small>Home</small></button>
+<button type="button" data-bottom="orders"><span class="nav-icon">▤</span><small>Your Orders</small></button>
+<button type="button" data-bottom="create" class="create-nav"><span class="create-icon">＋</span><small>Create</small></button>
+<button type="button" data-bottom="inbox"><span class="nav-icon">♡</span><small>Inbox</small></button>
+<button type="button" data-bottom="profile"><span class="nav-icon">●</span><small>Profile</small></button>
+</nav></body>
+</html>
